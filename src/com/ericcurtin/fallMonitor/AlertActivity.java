@@ -64,40 +64,40 @@ public class AlertActivity extends FallMonitorAbstActivity {
 		// }
 		// });
 		updateTimer = new Timer(); // first I loaded settings on every activity
-		sendBroadcastReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context arg0, Intent arg1) {
-				switch (getResultCode()) {
-				case Activity.RESULT_OK:
-					smsToast("SMS sent");
-					break;
-				case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-					smsToast("Generic failure");
-					break;
-				case SmsManager.RESULT_ERROR_NO_SERVICE:
-					smsToast("No service");
-					break;
-				case SmsManager.RESULT_ERROR_NULL_PDU:
-					smsToast("Null PDU");
-					break;
-				case SmsManager.RESULT_ERROR_RADIO_OFF:
-					smsToast("Radio off");
-					break;
-				}
-			}
-		};
-		deliveryBroadcastReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context arg0, Intent arg1) {
-				if (getResultCode() == Activity.RESULT_OK)
-					smsToast("SMS delivered");
-				else
-					smsToast("SMS not delivered");
-			}
-		};
-		registerReceiver(sendBroadcastReceiver, new IntentFilter(SENT));
-
-		registerReceiver(deliveryBroadcastReceiver, new IntentFilter(DELIVERED));
+		// sendBroadcastReceiver = new BroadcastReceiver() {
+		// @Override
+		// public void onReceive(Context arg0, Intent arg1) {
+		// switch (getResultCode()) {
+		// case Activity.RESULT_OK:
+		// smsToast("SMS sent");
+		// break;
+		// case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+		// smsToast("Generic failure");
+		// break;
+		// case SmsManager.RESULT_ERROR_NO_SERVICE:
+		// smsToast("No service");
+		// break;
+		// case SmsManager.RESULT_ERROR_NULL_PDU:
+		// smsToast("Null PDU");
+		// break;
+		// case SmsManager.RESULT_ERROR_RADIO_OFF:
+		// smsToast("Radio off");
+		// break;
+		// }
+		// }
+		// };
+		// deliveryBroadcastReceiver = new BroadcastReceiver() {
+		// @Override
+		// public void onReceive(Context arg0, Intent arg1) {
+		// if (getResultCode() == Activity.RESULT_OK)
+		// smsToast("SMS delivered");
+		// else
+		// smsToast("SMS not delivered");
+		// }
+		// };
+		// registerReceiver(sendBroadcastReceiver, new IntentFilter(SENT));
+		// registerReceiver(deliveryBroadcastReceiver, new
+		// IntentFilter(DELIVERED));
 		LocationResult locationResult = new LocationResult() {
 			@Override
 			public void gotLocation(Location location, boolean estimate) {
@@ -189,6 +189,40 @@ public class AlertActivity extends FallMonitorAbstActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		sendBroadcastReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context arg0, Intent arg1) {
+				switch (getResultCode()) {
+				case Activity.RESULT_OK:
+					smsToast("SMS sent");
+					break;
+				case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+					smsToast("Generic failure");
+					break;
+				case SmsManager.RESULT_ERROR_NO_SERVICE:
+					smsToast("No service");
+					break;
+				case SmsManager.RESULT_ERROR_NULL_PDU:
+					smsToast("Null PDU");
+					break;
+				case SmsManager.RESULT_ERROR_RADIO_OFF:
+					smsToast("Radio off");
+					break;
+				}
+			}
+		};
+		deliveryBroadcastReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context arg0, Intent arg1) {
+				if (getResultCode() == Activity.RESULT_OK)
+					smsToast("SMS delivered");
+				else
+					smsToast("SMS not delivered");
+			}
+		};
+		registerReceiver(sendBroadcastReceiver, new IntentFilter(SENT));
+
+		registerReceiver(deliveryBroadcastReceiver, new IntentFilter(DELIVERED));
 		lockManager.updatePhoneState(LockManager.PhoneState.INTERACTIVE);
 		// getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
@@ -205,6 +239,9 @@ public class AlertActivity extends FallMonitorAbstActivity {
 	protected void onPause() {
 		// super.onDestroy();
 		super.onPause();
+		unregisterReceiver(sendBroadcastReceiver);
+		unregisterReceiver(deliveryBroadcastReceiver);
+		//myLocation.turnOffSensors();
 		// System.out.println("StepPause");
 		// finish();
 	}
@@ -213,8 +250,8 @@ public class AlertActivity extends FallMonitorAbstActivity {
 	protected void onStop() {
 		super.onStop();
 		// System.out.println("StepStop");
-		unregisterReceiver(sendBroadcastReceiver);
-		unregisterReceiver(deliveryBroadcastReceiver);
+		//unregisterReceiver(sendBroadcastReceiver);
+		//unregisterReceiver(deliveryBroadcastReceiver);
 		AccelerometerService.setAlertOn(false);
 		myLocation.turnOffSensors();
 		mP.release();
