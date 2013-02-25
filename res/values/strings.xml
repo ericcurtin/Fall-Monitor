@@ -1,0 +1,25 @@
+<resources>
+
+    <string name="app_name">Fall Monitor Beta</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="cancelAlert"><b>Cancel Alert</b></string>
+    <string name="read">I have read and agree to this disclaimer</string>
+    <string name="disclaimer">Because this application senses the change of motion in the device rather than the motion of the user itself, it should be noted that this fall monitor cannot be guaranteed to function as intended. This software is provided \"as is\", and you use the software at your own risk.</string>
+    <string name="hello">You accepted the EULA!</string>
+    <string name="updates">Upates in this version: Improved wakelock and keguard locking mechanisms. Fix regarding ActionBarSherlock.</string>
+    <string name="settFileName">settings.ser</string>
+    <string name="calibFileName">calibration.ser</string>
+    <string name="calibrate">Calibrate</string>
+    <string name="alertSound">Alert Sound</string>
+    <string name="emergencyContacts">Set as emergency contacts</string>
+    <string name="nextCalibration">Next Calibration</string>
+    <string name="ticker_text">Fall Monitor service created</string>
+    <string name="notification_title">Fall Monitor</string>
+    <string name="notification_message">Fall Monitor</string>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#0093C4</color>
+
+</resources>
