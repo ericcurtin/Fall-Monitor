@@ -1,4 +1,4 @@
-// Eric Curtin
+// Eric Curtin 1990
 
 package com.ericcurtin.fallMonitor;
 
