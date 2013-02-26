@@ -31,7 +31,7 @@ public class CalibrationData implements Serializable {
 
 	public CalibrationData() {
 		this.minG = 7;
-		this.maxG = 26;
+		this.maxG = 31;
 		this.timeDifference = 300;
 	}
 
