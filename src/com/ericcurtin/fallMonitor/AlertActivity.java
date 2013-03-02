@@ -104,21 +104,20 @@ public class AlertActivity extends FallMonitorAbstActivity {
 				// System.out.println("http://maps.google.com/maps?q=");
 				// System.out.println(location.getLatitude() + ","
 				// + location.getLongitude());
-				if (location != null) {
-					sendSMS(settingsData.getContactList(),
-							"I have fallen and need assistance, my location (within "
-									+ location.getAccuracy()
-									+ "m approx.) is http://maps.google.com/maps?q="
-									+ location.getLatitude() + ","
-									+ location.getLongitude());
-					// Intent browse = new Intent(Intent.ACTION_VIEW,
-					// Uri.parse("http://maps.google.com/maps?q="
-					// + location.getLatitude() + ","
-					// + location.getLongitude()));
-					// browse.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					// startActivity(browse);
-
-				}
+				String smsContent = "I have fallen and need assistance";
+				if (location != null)
+					smsContent = smsContent + ", my location (within "
+							+ location.getAccuracy()
+							+ "m approx.) is http://maps.google.com/maps?q="
+							+ location.getLatitude() + ","
+							+ location.getLongitude();
+				// Intent browse = new Intent(Intent.ACTION_VIEW,
+				// Uri.parse("http://maps.google.com/maps?q="
+				// + location.getLatitude() + ","
+				// + location.getLongitude()));
+				// browse.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				// startActivity(browse);
+				sendSMS(settingsData.getContactList(), smsContent);
 				finish();
 			}
 		};
@@ -241,7 +240,7 @@ public class AlertActivity extends FallMonitorAbstActivity {
 		super.onPause();
 		unregisterReceiver(sendBroadcastReceiver);
 		unregisterReceiver(deliveryBroadcastReceiver);
-		//myLocation.turnOffSensors();
+		// myLocation.turnOffSensors();
 		// System.out.println("StepPause");
 		// finish();
 	}
@@ -250,8 +249,8 @@ public class AlertActivity extends FallMonitorAbstActivity {
 	protected void onStop() {
 		super.onStop();
 		// System.out.println("StepStop");
-		//unregisterReceiver(sendBroadcastReceiver);
-		//unregisterReceiver(deliveryBroadcastReceiver);
+		// unregisterReceiver(sendBroadcastReceiver);
+		// unregisterReceiver(deliveryBroadcastReceiver);
 		AccelerometerService.setAlertOn(false);
 		myLocation.turnOffSensors();
 		mP.release();

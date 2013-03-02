@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+
 //import android.widget.Toast;
 
 public class MyLocation {
@@ -43,6 +44,9 @@ public class MyLocation {
 		} catch (Exception ex) {
 		}
 
+		timer1 = new Timer();
+		timer1.schedule(new GetLastLocation(), 40000);
+
 		// don't start listeners if no provider is enabled
 		if (!gps_enabled && !network_enabled)
 			return false;
@@ -53,22 +57,20 @@ public class MyLocation {
 		if (network_enabled)
 			lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0,
 					locationListenerNetwork);
-		timer1 = new Timer();
-		timer1.schedule(new GetLastLocation(), 40000);
 		return true;
 	}
 
-	public void setAccurateLocation(Location location) {//, String toast) {
+	public void setAccurateLocation(Location location) {// , String toast) {
 		if (location.getAccuracy() < bestLocation.getAccuracy()
 				|| bestLocation.getProvider().equals("new")) {
 			bestLocation = location;
-			//Toast.makeText(context, toast, Toast.LENGTH_SHORT).show();
+			// Toast.makeText(context, toast, Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	LocationListener locationListenerGps = new LocationListener() {
 		public void onLocationChanged(Location location) {
-			setAccurateLocation(location);//, "GPS Aquired");
+			setAccurateLocation(location);// , "GPS Aquired");
 		}
 
 		public void onProviderDisabled(String provider) {
@@ -83,7 +85,7 @@ public class MyLocation {
 
 	LocationListener locationListenerNetwork = new LocationListener() {
 		public void onLocationChanged(Location location) {
-			setAccurateLocation(location);//, "Network Aquired");
+			setAccurateLocation(location);// , "Network Aquired");
 		}
 
 		public void onProviderDisabled(String provider) {
