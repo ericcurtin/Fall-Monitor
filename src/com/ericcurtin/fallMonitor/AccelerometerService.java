@@ -119,34 +119,43 @@ public class AccelerometerService extends Service implements
 				+ event.values[1] * event.values[1] + event.values[2]
 				* event.values[2]);// / 9.80665;
 
-		//System.out.println("Accer: " + event.values[0] + " " + event.values[1]
-				//+ " " + event.values[2] + " " + g);
+		// System.out.println("Accer: " + event.values[0] + " " +
+		// event.values[1]
+		// + " " + event.values[2] + " " + g);
 
 		if (!alertOn)
 			if (g > calibrationData.getMaxG() && timer[0] == 0) {
 				timer[0] = System.currentTimeMillis();
-				//System.out.println("StepOne");
+				// System.out.println("StepOne");
 			} else if (System.currentTimeMillis() - timer[0] < calibrationData
 					.getTimeDifference() && g < calibrationData.getMinG()) {
 				timer[1] = System.currentTimeMillis();
-				//System.out.println("StepTwo");
+				// System.out.println("StepTwo");
 			} else if (System.currentTimeMillis() - timer[0] > calibrationData
 					.getTimeDifference() && timer[0] > 0 && timer[1] == 0) {
 				Arrays.fill(timer, 0);
-				//System.out.println("ResetTwo");
+				// System.out.println("ResetTwo");
 			} else if (System.currentTimeMillis() - timer[1] < 10000
 					&& g > calibrationData.getMinG()
 					&& g < calibrationData.getMaxG() && timer[2] == 0) {
 				timer[2] = System.currentTimeMillis();
-				//System.out.println("StepThree");
-			} else if (System.currentTimeMillis() - timer[2] < 10000
-					&& (g < calibrationData.getMinG() && g > calibrationData
-							.getMaxG())) {
+				// System.out.println("StepThree");
+			} else if (System.currentTimeMillis() - timer[2] < 10000 && System.currentTimeMillis() - timer[2] > 1000
+					&& (g < SensorManager.GRAVITY_EARTH - 1.5/*
+															 * calibrationData.
+															 * getMinG()
+															 */&& g > SensorManager.GRAVITY_EARTH + 1.5/*
+																										 * calibrationData
+																										 * .
+																										 * getMaxG
+																										 * (
+																										 * )
+																										 */)) {
 				Arrays.fill(timer, 0);
-				//System.out.println("ResetThree");
+				// System.out.println("ResetThree");
 			} else if (System.currentTimeMillis() - timer[2] > 10000
 					&& timer[2] > 0) {
-				//System.out.println("StepThree");
+				// System.out.println("StepThree");
 				alertOn = true;
 				Intent popup = new Intent(this.getApplicationContext(),
 						AlertActivity.class);

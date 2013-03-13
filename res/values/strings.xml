@@ -7,7 +7,7 @@
     <string name="read">I have read and agree to this disclaimer</string>
     <string name="disclaimer">Because this application senses the change of motion in the device rather than the motion of the user itself, it should be noted that this fall monitor cannot be guaranteed to function as intended. This software is provided \"as is\", and you use the software at your own risk.</string>
     <string name="hello">You accepted the EULA!</string>
-    <string name="updates">Upates in this version: Fix regarding location services.</string>
+    <string name="updates">Upates in this version: Cancels false alarms more accurately.</string>
     <string name="settFileName">settings.ser</string>
     <string name="calibFileName">calibration.ser</string>
     <string name="calibrate">Calibrate</string>
