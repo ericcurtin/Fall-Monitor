@@ -144,7 +144,7 @@ public class AccelerometerService extends Service implements
 					&& (g < SensorManager.GRAVITY_EARTH - 1.5/*
 															 * calibrationData.
 															 * getMinG()
-															 */&& g > SensorManager.GRAVITY_EARTH + 1.5/*
+															 */|| g > SensorManager.GRAVITY_EARTH + 1.5/*
 																										 * calibrationData
 																										 * .
 																										 * getMaxG
