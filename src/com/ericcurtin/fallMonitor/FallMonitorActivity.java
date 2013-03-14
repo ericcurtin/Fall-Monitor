@@ -3,6 +3,7 @@ package com.ericcurtin.fallMonitor;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.EditText;
 import org.holoeverywhere.widget.MultiAutoCompleteTextView;
+import org.holoeverywhere.widget.TextView;
 import org.holoeverywhere.widget.Toast;
 import org.holoeverywhere.widget.ToggleButton;
 
@@ -17,6 +18,8 @@ import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -32,14 +35,16 @@ public class FallMonitorActivity extends FallMonitorAbstActivity {
 	private Button calibrateButton, setContactButton, selectAlertButton;
 	private MultiAutoCompleteTextView mtv;
 	private Intent serviceIntent;
-	//private CalibrationData calibrationData;
+	private TextView contactsTextView;
+
+	// private CalibrationData calibrationData;
 
 	@Override
 	protected void initializeUI() {
 		setContentView(R.layout.main);
 		new Eula(this).show();
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,19 +55,21 @@ public class FallMonitorActivity extends FallMonitorAbstActivity {
 		// System.out.println("CalibrationData class not found.");
 		// c.printStackTrace();
 		// }
-		//try {
-			//FileInputStream fileInputStream = openFileInput(getString(R.string.calibFileName));
-			//ObjectInputStream objectInputStream = new ObjectInputStream(
-			//		fileInputStream);
-			//calibrationData = (CalibrationData) objectInputStream.readObject();
-			//objectInputStream.close();
-			//fileInputStream.close();
-			// System.out.println("jonny " + calibrationData);
-		//} catch (Exception e) {
-			//calibrationData = new CalibrationData();
-		//}
+		// try {
+		// FileInputStream fileInputStream =
+		// openFileInput(getString(R.string.calibFileName));
+		// ObjectInputStream objectInputStream = new ObjectInputStream(
+		// fileInputStream);
+		// calibrationData = (CalibrationData) objectInputStream.readObject();
+		// objectInputStream.close();
+		// fileInputStream.close();
+		// System.out.println("jonny " + calibrationData);
+		// } catch (Exception e) {
+		// calibrationData = new CalibrationData();
+		// }
 		settingsData = new SettingsData(this);
-		//System.out.println(settingsData);
+
+		// System.out.println(settingsData);
 		calibrateButton = (Button) findViewById(R.id.calibrateButton);
 		calibrateButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -71,11 +78,14 @@ public class FallMonitorActivity extends FallMonitorAbstActivity {
 				startActivity(intent);
 			}
 		});
+		contactsTextView = (TextView) findViewById(R.id.contactsTextView);
+		setContactsText();
+		contactsTextView.setTextSize(calibrateButton.getTextSize());
 		setContactButton = (Button) findViewById(R.id.setContactButton);
 		setContactButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				//System.out.println(calibrationData);
-				setSender();
+				// System.out.println(calibrationData);
+				setEmerContact();
 			}
 		});
 		selectAlertButton = (Button) findViewById(R.id.selectAlertSound);
@@ -146,7 +156,7 @@ public class FallMonitorActivity extends FallMonitorAbstActivity {
 		return false;
 	}
 
-	private boolean setSender() {
+	private boolean setEmerContact() {
 		EditText et = (MultiAutoCompleteTextView) this.findViewById(R.id.to);
 		this.to = et.getText().toString();
 		settingsData.resetArrayList();
@@ -164,6 +174,7 @@ public class FallMonitorActivity extends FallMonitorAbstActivity {
 		// stopService(serviceIntent);
 		// startAccelService();
 		// }
+		setContactsText();
 		return true;
 	}
 
@@ -213,9 +224,30 @@ public class FallMonitorActivity extends FallMonitorAbstActivity {
 		mtv.setEnabled(!enabled);
 		final SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		SharedPreferences.Editor editor = prefs
-				.edit();
+		SharedPreferences.Editor editor = prefs.edit();
 		editor.putBoolean("isAccelOn", enabled);
 		editor.commit();
+	}
+
+	private void setContactsText() {
+		String contactsText = "Active Emergency Contacts:";
+		int j = 0;
+		for (int i = 0; i < settingsData.getContactList().length; i++, j++) {
+			contactsText += "<br /><font color=#";
+			if (j == 0)
+				contactsText += Integer.toHexString(Color.GREEN).substring(2);
+			else if (j == 1)
+				contactsText += Integer.toHexString(Color.CYAN).substring(2);
+			else if (j == 2)
+				contactsText += Integer.toHexString(Color.BLUE).substring(2);
+			else if (j == 3)
+				contactsText += Integer.toHexString(Color.MAGENTA).substring(2);
+			else if (j == 4) {
+				contactsText += Integer.toHexString(Color.RED).substring(2);
+				j -= 5;
+			}
+			contactsText += ">" + settingsData.getContactList()[i] + "</font>";
+		}
+		contactsTextView.setText(Html.fromHtml(contactsText));
 	}
 }

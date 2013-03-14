@@ -1,51 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/black"
-    android:orientation="vertical" >
-
-    <ToggleButton
-        android:id="@+id/toggleButton1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textOff="Fall Monitor off"
-        android:textOn="Fall Monitor on" />
+    android:background="@color/black" >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/calibrateButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/calibrate" />
-
-        <Button
-            android:id="@+id/selectAlertSound"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/alertSound" />
-    </LinearLayout>
-
-    <MultiAutoCompleteTextView
-        android:id="@+id/to"
-        style="@style/AppTheme"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:imeOptions="actionNext"
-        android:nextFocusDown="@+id/text"
-        android:nextFocusRight="@+id/text"
-        android:singleLine="true" />
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/setContactButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/emergencyContacts" />
+        <ToggleButton
+            android:id="@+id/toggleButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textOff="Fall Monitor off"
+            android:textOn="Fall Monitor on" />
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/calibrateButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/calibrate" />
+
+            <Button
+                android:id="@+id/selectAlertSound"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/alertSound" />
+        </LinearLayout>
+
+        <MultiAutoCompleteTextView
+            android:id="@+id/to"
+            style="@style/AppTheme"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:nextFocusDown="@+id/text"
+            android:nextFocusRight="@+id/text"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/setContactButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/emergencyContacts" />
+
+        <TextView
+            android:id="@+id/contactsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true" />
+    </LinearLayout>
+
+</ScrollView>
