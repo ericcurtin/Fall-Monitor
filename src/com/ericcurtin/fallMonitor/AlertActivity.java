@@ -33,7 +33,7 @@ public class AlertActivity extends FallMonitorAbstActivity {
 	private Vibrator v;
 	private SettingsData settingsData;
 	private Timer updateTimer;
-	private LockManager lockManager;
+	private static LockManager lockManager;
 
 	/** Called when the activity is first created. */
 
@@ -57,7 +57,7 @@ public class AlertActivity extends FallMonitorAbstActivity {
 		super.onCreate(savedInstanceState);// Reason why call is made after
 											// interface
 											// http://actionbarsherlock.com/theming.html
-		this.lockManager = new LockManager(this);
+		lockManager = new LockManager(this);
 		// alertButton.setOnClickListener(new View.OnClickListener() {
 		// public void onClick(View v) {
 		// finish();
@@ -123,6 +123,7 @@ public class AlertActivity extends FallMonitorAbstActivity {
 		};
 		myLocation = new MyLocation(this);
 		myLocation.getLocation(this, locationResult);
+		// System.out.println("on1create");
 	}
 
 	@Override
@@ -183,6 +184,7 @@ public class AlertActivity extends FallMonitorAbstActivity {
 		v.vibrate(pattern, 0);
 
 		// Toast.makeText(this, contactNo.toString(), Toast.LENGTH_LONG).show();
+		// System.out.println("on1start");
 	}
 
 	@Override
@@ -224,6 +226,7 @@ public class AlertActivity extends FallMonitorAbstActivity {
 		registerReceiver(deliveryBroadcastReceiver, new IntentFilter(DELIVERED));
 		lockManager.updatePhoneState(LockManager.PhoneState.INTERACTIVE);
 		// getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
+		// System.out.println("on1resume");
 	}
 
 	public void onClick(View view) {
@@ -238,11 +241,13 @@ public class AlertActivity extends FallMonitorAbstActivity {
 	protected void onPause() {
 		// super.onDestroy();
 		super.onPause();
+		lockManager.updatePhoneState(LockManager.PhoneState.INTERACTIVE);
 		unregisterReceiver(sendBroadcastReceiver);
 		unregisterReceiver(deliveryBroadcastReceiver);
 		// myLocation.turnOffSensors();
 		// System.out.println("StepPause");
 		// finish();
+		// System.out.println("on1pause");
 	}
 
 	@Override
@@ -251,13 +256,16 @@ public class AlertActivity extends FallMonitorAbstActivity {
 		// System.out.println("StepStop");
 		// unregisterReceiver(sendBroadcastReceiver);
 		// unregisterReceiver(deliveryBroadcastReceiver);
+		lockManager.updatePhoneState(LockManager.PhoneState.PROCESSING);
 		AccelerometerService.setAlertOn(false);
 		myLocation.turnOffSensors();
+		mP.reset();
 		mP.release();
 		v.cancel();
 		lockManager.updatePhoneState(LockManager.PhoneState.IDLE);
 		// wl.release();
-		finish();
+		// finish();
+		// System.out.println("on1stop");
 	}
 
 	@Override
