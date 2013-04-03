@@ -38,11 +38,11 @@ public class LockManager {
 		fullLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
 				| PowerManager.ACQUIRE_CAUSES_WAKEUP, "RedPhone Full");
 		partialLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-				"RedPhone Partial");
+				"Fall Monitor Partial");
 
 		km = (KeyguardManager) context
 				.getSystemService(Context.KEYGUARD_SERVICE);
-		keyGuardLock = km.newKeyguardLock("RedPhone KeyGuard");
+		keyGuardLock = km.newKeyguardLock("Fall Monitor KeyGuard");
 
 		WifiManager wm = (WifiManager) context
 				.getSystemService(Context.WIFI_SERVICE);

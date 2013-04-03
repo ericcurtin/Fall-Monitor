@@ -155,7 +155,7 @@ public class AccelerometerService extends Service implements
 				// System.out.println("ResetThree");
 			} else if (System.currentTimeMillis() - timer[2] > 10000
 					&& timer[2] > 0) {
-				// System.out.println("StepThree");
+				 System.out.println("StepThree");
 				alertOn = true;
 				Intent popup = new Intent(this.getApplicationContext(),
 						AlertActivity.class);
@@ -163,6 +163,7 @@ public class AccelerometerService extends Service implements
 				// popup.putExtra("settings", contactNo);
 				// popup.putExtra("soundFile", soundFile);
 				startActivity(popup);
+				Arrays.fill(timer, 0);
 			}
 
 	}
