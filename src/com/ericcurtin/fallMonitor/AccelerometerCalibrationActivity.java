@@ -110,13 +110,13 @@ public class AccelerometerCalibrationActivity extends FallMonitorAbstActivity im
 			if (g > maxG[i]) {
 				maxG[i] = g;
 				maxTime[i] = System.currentTimeMillis();
-				//System.out.println(g);
+				// System.out.println(g);
 				minG[i] = Float.MAX_VALUE;// to ensure minG is recorded after
 											// maxG
 			} else if (g < minG[i]) {
 				minG[i] = g;
 				minTime[i] = System.currentTimeMillis();
-				//System.out.println(g + " " + (minTime[i] - maxTime[i]));
+				// System.out.println(g + " " + (minTime[i] - maxTime[i]));
 			}
 	}
 
