@@ -25,6 +25,7 @@ public class AccelerometerService extends Service implements
 	private static long[] timer;
 	private CalibrationData calibrationData;
 	private static boolean alertOn;
+	private static LockManager lockManager;
 
 	// private String[] contactNo;
 	// private String contactSt, soundFile;
@@ -69,6 +70,8 @@ public class AccelerometerService extends Service implements
 				.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		sensorManager.registerListener(this, accelerometer,
 				SensorManager.SENSOR_DELAY_FASTEST);
+		lockManager = new LockManager(this);
+		lockManager.updatePhoneState(LockManager.PhoneState.PROCESSING);
 	}
 
 	// @Override
@@ -98,6 +101,7 @@ public class AccelerometerService extends Service implements
 	public void onDestroy() {
 		sensorManager.unregisterListener(this);
 		super.onDestroy();
+		lockManager.updatePhoneState(LockManager.PhoneState.IDLE);
 		Toast.makeText(this, "Fall Monitor service destroyed",
 				Toast.LENGTH_LONG).show();
 	}

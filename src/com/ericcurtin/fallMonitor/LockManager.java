@@ -93,7 +93,7 @@ public class LockManager {
 			break;
 		case PARTIAL:
 			partialLock.acquire();
-			wifiLock.acquire();
+			wifiLock.release();
 			fullLock.release();
 			break;
 		case SLEEP:
