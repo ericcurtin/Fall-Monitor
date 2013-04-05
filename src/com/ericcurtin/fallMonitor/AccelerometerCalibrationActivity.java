@@ -14,8 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class AccelerometerCalibrationActivity extends FallMonitorAbstActivity implements
-		SensorEventListener {
+public class AccelerometerCalibrationActivity extends FallMonitorAbstActivity
+		implements SensorEventListener {
 
 	private SensorManager sensorManager;
 	private Sensor accelerometer;
@@ -27,7 +27,7 @@ public class AccelerometerCalibrationActivity extends FallMonitorAbstActivity im
 	protected void initializeUI() {
 		setContentView(R.layout.calibration);
 	}
-	
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		i = 0;

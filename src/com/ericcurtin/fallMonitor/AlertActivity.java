@@ -262,7 +262,7 @@ public class AlertActivity extends FallMonitorAbstActivity {
 		mP.reset();
 		mP.release();
 		v.cancel();
-		lockManager.updatePhoneState(LockManager.PhoneState.IDLE);
+		// lockManager.updatePhoneState(LockManager.PhoneState.IDLE);
 		// wl.release();
 		// finish();
 		// System.out.println("on1stop");

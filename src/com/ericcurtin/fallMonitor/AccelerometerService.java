@@ -132,7 +132,9 @@ public class AccelerometerService extends Service implements
 				timer[0] = System.currentTimeMillis();
 				// System.out.println("StepOne");
 			} else if (System.currentTimeMillis() - timer[0] < calibrationData
-					.getTimeDifference() && g < calibrationData.getMinG()) {
+					.getTimeDifference()
+					&& g < calibrationData.getMinG()
+					&& timer[1] == 0) {
 				timer[1] = System.currentTimeMillis();
 				// System.out.println("StepTwo");
 			} else if (System.currentTimeMillis() - timer[0] > calibrationData
@@ -144,22 +146,23 @@ public class AccelerometerService extends Service implements
 					&& g < calibrationData.getMaxG() && timer[2] == 0) {
 				timer[2] = System.currentTimeMillis();
 				// System.out.println("StepThree");
-			} else if (System.currentTimeMillis() - timer[2] < 10000 && System.currentTimeMillis() - timer[2] > 1000
-					&& (g < SensorManager.GRAVITY_EARTH - 1.5/*
+			} else if (System.currentTimeMillis() - timer[2] < 10000
+					&& System.currentTimeMillis() - timer[2] > 1000
+					&& (g < SensorManager.GRAVITY_EARTH - 4/*
 															 * calibrationData.
 															 * getMinG()
-															 */|| g > SensorManager.GRAVITY_EARTH + 1.5/*
-																										 * calibrationData
-																										 * .
-																										 * getMaxG
-																										 * (
-																										 * )
-																										 */)) {
+															 */|| g > SensorManager.GRAVITY_EARTH + 4/*
+																									 * calibrationData
+																									 * .
+																									 * getMaxG
+																									 * (
+																									 * )
+																									 */)) {
 				Arrays.fill(timer, 0);
 				// System.out.println("ResetThree");
 			} else if (System.currentTimeMillis() - timer[2] > 10000
 					&& timer[2] > 0) {
-				 System.out.println("StepThree");
+				System.out.println("StepThree");
 				alertOn = true;
 				Intent popup = new Intent(this.getApplicationContext(),
 						AlertActivity.class);
