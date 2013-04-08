@@ -10,6 +10,12 @@ import android.os.Bundle;
 
 //import android.widget.Toast;
 
+/**
+ * Class for gaining location using three methods to get the most accurate
+ * location. GPS, Wi-Fi networks and cell tower triangulation.
+ * 
+ * @author Eric Curtin
+ */
 public class MyLocation {
 	Timer timer1;
 	LocationManager lm;

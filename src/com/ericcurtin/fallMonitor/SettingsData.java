@@ -11,6 +11,11 @@ import java.util.Arrays;
 
 import android.content.Context;
 
+/**
+ * Stores settings data for use in the fall monitor activity.
+ * 
+ * @author Eric Curtin
+ */
 public class SettingsData implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<String> contactList;

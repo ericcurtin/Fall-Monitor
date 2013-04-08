@@ -6,12 +6,11 @@ import android.net.wifi.WifiManager;
 import android.os.PowerManager;
 import android.provider.Settings;
 
-//import android.util.Log;
 
 /**
  * Maintains wake lock state.
  * 
- * @author Stuart O. Anderson
+ * @author Stuart O. Anderson (adapted by Eric Curtin)
  */
 public class LockManager {
 	private final PowerManager.WakeLock fullLock;

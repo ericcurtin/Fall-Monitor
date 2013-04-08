@@ -7,6 +7,11 @@ import java.io.Serializable;
 
 import android.content.Context;
 
+/**
+ * Stores calibration data for use in the fall monitor service.
+ * 
+ * @author Eric Curtin
+ */
 public class CalibrationData implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -59,7 +64,7 @@ public class CalibrationData implements Serializable {
 			objectOutputStream.close();
 			fileOutputStream.close();
 		} catch (IOException ioE) {
-			//ioE.printStackTrace();
+			// ioE.printStackTrace();
 		}
 	}
 

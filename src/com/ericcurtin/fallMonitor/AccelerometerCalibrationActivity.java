@@ -1,5 +1,3 @@
-// Eric Curtin 1990 312
-
 package com.ericcurtin.fallMonitor;
 
 import java.util.Arrays;
@@ -14,6 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * Accelerometer calibration.
+ * 
+ * @author Eric Curtin
+ */
 public class AccelerometerCalibrationActivity extends FallMonitorAbstActivity
 		implements SensorEventListener {
 

@@ -23,6 +23,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+/**
+ * Alert activity that looks for a location and allows the user to cancel the
+ * SMS being sent to an emergency contact in case of a false alarm.
+ * 
+ * @author Eric Curtin
+ */
 public class AlertActivity extends FallMonitorAbstActivity {
 	private MyLocation myLocation;
 	private Button alertButton;

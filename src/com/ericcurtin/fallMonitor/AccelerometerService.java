@@ -17,6 +17,11 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 import android.hardware.SensorManager;
 
+/**
+ * Foreground service for detecting falls.
+ * 
+ * @author Eric Curtin
+ */
 public class AccelerometerService extends Service implements
 		SensorEventListener {
 
@@ -127,41 +132,67 @@ public class AccelerometerService extends Service implements
 		// event.values[1]
 		// + " " + event.values[2] + " " + g);
 
-		if (!alertOn)
-			if (g > calibrationData.getMaxG() && timer[0] == 0) {
+		if (!alertOn) // Fall Detection algorithm follows
+			if (g > calibrationData.getMaxG() && timer[0] == 0) { // Check to
+																	// see if
+																	// MaxG
+																	// threshold
+																	// is
+																	// broken.
 				timer[0] = System.currentTimeMillis();
 				// System.out.println("StepOne");
 			} else if (System.currentTimeMillis() - timer[0] < calibrationData
 					.getTimeDifference()
 					&& g < calibrationData.getMinG()
-					&& timer[1] == 0) {
+					&& timer[1] == 0) { // Check to see if MinG threshold is
+										// broken within the correct time limit.
 				timer[1] = System.currentTimeMillis();
 				// System.out.println("StepTwo");
 			} else if (System.currentTimeMillis() - timer[0] > calibrationData
-					.getTimeDifference() && timer[0] > 0 && timer[1] == 0) {
+					.getTimeDifference() && timer[0] > 0 && timer[1] == 0) { // if
+																				// MinG
+																				// threshold
+																				// isn't
+																				// broken
+																				// in
+																				// the
+																				// given
+																				// time
+																				// limit
+																				// reset
+																				// all
+																				// the
+																				// timers.
 				Arrays.fill(timer, 0);
 				// System.out.println("ResetTwo");
 			} else if (System.currentTimeMillis() - timer[1] < 10000
 					&& g > calibrationData.getMinG()
-					&& g < calibrationData.getMaxG() && timer[2] == 0) {
+					&& g < calibrationData.getMaxG() && timer[2] == 0) {// Set
+																		// timer
+																		// if G
+																		// remains
+																		// between
+																		// the
+																		// MinG
+																		// and
+																		// MaxG
+																		// threshold.
 				timer[2] = System.currentTimeMillis();
 				// System.out.println("StepThree");
 			} else if (System.currentTimeMillis() - timer[2] < 10000
 					&& System.currentTimeMillis() - timer[2] > 1000
-					&& (g < SensorManager.GRAVITY_EARTH - 4/*
-															 * calibrationData.
-															 * getMinG()
-															 */|| g > SensorManager.GRAVITY_EARTH + 4/*
-																									 * calibrationData
-																									 * .
-																									 * getMaxG
-																									 * (
-																									 * )
-																									 */)) {
+					&& (g < SensorManager.GRAVITY_EARTH - 4 || g > SensorManager.GRAVITY_EARTH + 4)) { // Check
+																										// for
+																										// inactive
+																										// state
+																										// for
+																										// nine
+																										// seconds.
 				Arrays.fill(timer, 0);
 				// System.out.println("ResetThree");
 			} else if (System.currentTimeMillis() - timer[2] > 10000
-					&& timer[2] > 0) {
+					&& timer[2] > 0) { // Set off alert after the nine seconds
+										// have elapsed.
 				System.out.println("StepThree");
 				alertOn = true;
 				Intent popup = new Intent(this.getApplicationContext(),

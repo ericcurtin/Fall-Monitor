@@ -25,6 +25,13 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
+/**
+ * The home screen of the application with which you can turn the fall monitor
+ * on and off. You may also change the alert sound, start calibration or set
+ * emergency contacts.
+ * 
+ * @author Eric Curtin
+ */
 public class FallMonitorActivity extends FallMonitorAbstActivity {
 
 	/** {@link Uri} for saving sent messages. */

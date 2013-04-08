@@ -10,6 +10,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+/**
+ * Eula agreement when the user runs the current version of the application for
+ * the first time.
+ * 
+ * @author Eric Curtin
+ */
 public class Eula {
 
 	private final String EULA_PREFIX = "eula_";
@@ -25,7 +31,7 @@ public class Eula {
 			pi = mActivity.getPackageManager().getPackageInfo(
 					mActivity.getPackageName(), PackageManager.GET_ACTIVITIES);
 		} catch (PackageManager.NameNotFoundException e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return pi;
 	}
